@@ -20,7 +20,7 @@ function promiseMap(promise, fn) {
 }
 
 function getValue(db, requestPromise) {
-  return Promise.all([db, requestPromise]).then(([conn, request]) => request.run(conn)).then(
+  return Promise.all([db, requestPromise]).then(([conn, request]) => conn.run(request)).then(
       result => {
         console.log("RES", result)
         return result
@@ -40,7 +40,7 @@ function simpleValue(db, requestCallback) {
 }
 
 function getList(db, requestPromise) {
-  return Promise.all([db, requestPromise]).then(([conn, request]) => request.run(conn))
+  return Promise.all([db, requestPromise]).then(([conn, request]) => conn.run(request))
 }
 function observableList(db, requestPromise, idField, maxLength) {
   return new RethinkObservableList(db, requestPromise, idField, maxLength)
